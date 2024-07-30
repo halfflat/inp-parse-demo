@@ -5,7 +5,7 @@ top:=$(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
 all:: demo
 
-all-src:=demo.cc
+all-src:=demo.cc model_config_io.cc
 
 vpath %.cc $(top)
 
@@ -17,11 +17,11 @@ CPPFLAGS+=-I $(top)include
 depends:=$(patsubst %.cc, %.d, $(all-src))
 -include $(depends)
 
-demo: demo.o
+demo: demo.o model_config_io.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS)
 
 clean:
-	rm -f demo.o
+	rm -f demo.o model_config.o
 
 realclean: clean
 	rm -f $(depends)
