@@ -1,9 +1,11 @@
 #pragma once
 #include <any>
+#include <charconv>
 #include <expected>
 #include <functional>
 #include <iomanip>
 #include <iterator>
+#include <limits>
 #include <map>
 #include <optional>
 #include <stdexcept>
@@ -801,7 +803,7 @@ struct specification {
     }
 
     template <typename Writer = writer<std::string>>
-    hopefully<typename Writer::representation_type> write(Record& record, const Writer& wtr = default_writer()) const {
+    hopefully<typename Writer::representation_type> write(const Record& record, const Writer& wtr = default_writer()) const {
         return retrieve(record).
                and_then([&](const any_ptr& p) { return wtr.write(field_type, p); }).
                transform_error(with_ctx_key(key));
@@ -1102,15 +1104,12 @@ hopefully<void> import_ini(
 // INI-style exporter.
 // Second argument is any array or collection (with value_type defined) of specifications.
 
-/*
 template <typename Record,
           typename C,
           std::enable_if_t<std::is_assignable_v<specification<Record>&, value_type_t<C>>, int> = 0
 >
-*/
-template <typename Record, typename C>
 hopefully<void> export_ini(
-    Record& record, const C& specs, const writer<std::string>& wtr,
+    const Record& record, const C& specs, const writer<std::string>& wtr,
     std::ostream& out, std::string secsep = "/")
 {
     constexpr auto npos = std::string::npos;

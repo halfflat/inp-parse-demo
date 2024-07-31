@@ -86,9 +86,11 @@ P::writer model_writers(P::default_writer(),
 bool model_config_parse_kv(model_config& M, const std::string& kv) {
     auto h = import_k_eq_v(M, canonical_specs, model_readers, kv);
     if (!h) {
-        const P::failure& fail = h.error();
+        P::failure fail = h.error();
         if (fail.error==P::failure::unrecognized_key) return false;
-        else throw model_config_io_error(P::explain(fail));
+
+        fail.ctx.source = "<argument>";
+        throw model_config_io_error(P::explain(fail, true));
     }
     return true;
 }
