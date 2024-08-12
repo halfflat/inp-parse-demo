@@ -7,7 +7,7 @@ all:: demo
 
 all-src:=demo.cc model_config_io.cc
 
-vpath %.cc $(top)
+vpath %.cc $(top)demo
 
 CXXSTD?=c++23
 OPTFLAGS?=-O2 -fsanitize=address -march=native
@@ -21,7 +21,7 @@ demo: demo.o model_config_io.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS)
 
 clean:
-	rm -f demo.o model_config.o
+	rm -f demo.o model_config_io.o
 
 realclean: clean
-	rm -f $(depends)
+	rm -f $(depends) demo

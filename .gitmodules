@@ -1,0 +1,6 @@
+[submodule "ext/parapara"]
+	path = ext/parapara
+	url = https://github.com/halfflat/parapara
+[submodule "ext/tinyopt"]
+	path = ext/tinyopt
+	url = https://github.com/halfflat/tinyopt
