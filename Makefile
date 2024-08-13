@@ -9,8 +9,8 @@ all-src:=demo.cc model_config_io.cc
 
 vpath %.cc $(top)demo
 
-CXXSTD?=c++23
-OPTFLAGS?=-O2 -fsanitize=address -march=native
+CXXSTD?=c++20
+OPTFLAGS?=-O2 -march=native
 CXXFLAGS+=$(OPTFLAGS) -MMD -MP -std=$(CXXSTD) -pedantic -Wall -Wextra -g -pthread
 CPPFLAGS+=-I $(top)include
 

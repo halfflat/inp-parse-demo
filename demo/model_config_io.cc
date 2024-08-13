@@ -37,16 +37,16 @@ hopefully<orbital_basis> read_orbital_basis(std::string_view v) {
 
         if (p>0) {
             auto hi = P::read_cc<unsigned>(v.substr(0, p));
-            if (!hi) return std::unexpected(hi.error()); // error parsing max_n value
+            if (!hi) return P::unexpected(hi.error()); // error parsing max_n value
 
             max_n = hi.value();
             v.remove_prefix(p);
         }
 
-        if (v.empty()) return std::unexpected(P::invalid_value("missing orbital"));
+        if (v.empty()) return P::unexpected(P::invalid_value("missing orbital"));
 
         int l = spectroscopic_notation::to_l(v[0]);
-        if (l<0) return std::unexpected(P::invalid_value("unrecognized orbital"));
+        if (l<0) return P::unexpected(P::invalid_value("unrecognized orbital"));
 
         if ((unsigned)l >= max_pqn.size()) max_pqn.resize(l+1);
         max_pqn[l] = max_n;
