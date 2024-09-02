@@ -17,7 +17,7 @@ struct orbital_basis {
 
 struct model_config {
     std::string id;
-    unsigned Z;
+    unsigned Z = 0;
 
     // Basis
 
