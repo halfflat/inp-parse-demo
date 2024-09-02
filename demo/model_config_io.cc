@@ -57,7 +57,7 @@ hopefully<orbital_basis> read_orbital_basis(std::string_view v) {
     return orbital_basis{std::move(max_pqn)};
 }
 
-std::string write_orbital_basis(const orbital_basis& B) {
+std::string write_orbital_basis(const orbital_basis& B, const P::writer<std::string>& wtr) {
     std::string repn;
 
     unsigned n = 0;
@@ -65,7 +65,7 @@ std::string write_orbital_basis(const orbital_basis& B) {
         if (B[l]==0) continue;
         if (B[l]!=n) {
             n = B[l];
-            repn += P::write_cc<unsigned>(n);
+            repn += wtr.write(n).value();
         }
         repn += spectroscopic_notation::from_l(l);
     }
